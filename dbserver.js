@@ -1,6 +1,11 @@
 const mysql = require('mysql2');
 const dotenv = require('dotenv');
 dotenv.config();
+const jwt = require('jsonwebtoken');
+
+const generateToken = (user) => {
+    return jwt.sign({ id: user.id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
+};
 
 const pool = mysql.createPool({
     host:process.env.DB_HOST,
